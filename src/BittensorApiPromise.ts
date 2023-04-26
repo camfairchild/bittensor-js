@@ -7,17 +7,19 @@ import { AccountId } from "@polkadot/types/interfaces";
 import { ApiOptions } from "@polkadot/api/types";
 import { Option } from "@polkadot/types";
 
-export class BittensorApiPromise {
-    public api?: ApiPromise;
+export class BittensorApiPromise<ApiType extends ApiPromise> {
+    public api?: ApiType;
 
-    public static async create(
+    public static async create<ApiType extends ApiPromise>(
+      api_create: (options?: ApiOptions | undefined) => Promise<ApiType>,
       endpoints: string | string[],
       options?: ApiOptions
-    ): Promise<BittensorApiPromise> {
+    ): Promise<BittensorApiPromise<ApiType>> {
 
       const wsProvider = new WsProvider(endpoints);
       await wsProvider.connect();
-      const api = await ApiPromise.create({
+      
+      const api = await api_create({
         types: {
           Balance: 'u64',
           PrometheusInfo: {
@@ -195,7 +197,7 @@ export class BittensorApiPromise {
         provider: wsProvider,
       });
 
-      const bapi = new this();
+      const bapi = new BittensorApiPromise<ApiType>();
       bapi.api = api;
 
       return bapi;

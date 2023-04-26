@@ -1,3 +1,4 @@
+import { ApiPromise } from "@polkadot/api";
 import { BittensorApiPromise } from "./BittensorApiPromise";
 import { DelegateExtras, DelegateExtra, DelegateInfo } from "./interfaces";
 
@@ -9,7 +10,7 @@ export class DelegatesRegistry {
         return data;
     };
 
-    public async getDelegatesInfoWithExtras(api: BittensorApiPromise): Promise<Array<DelegateExtra & DelegateInfo>> {
+    public async getDelegatesInfoWithExtras<ApiType extends ApiPromise>(api: BittensorApiPromise<ApiType>): Promise<Array<DelegateExtra & DelegateInfo>> {
         const delegatesInfo = await api.getDelegateInfo();
         const delegatesJson = await this.getDelegatesJson();
 
