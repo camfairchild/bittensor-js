@@ -1,6 +1,6 @@
 {
   "name": "bittensor-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "author": "Fairchild Software Inc <cameron@fairchild.software>",
   "main": "dist/cjs/index.js",
@@ -17,8 +17,7 @@
     "build:umd": "node tools/cleanup umd && webpack --config config/webpack.config.js",
     "build:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
     "clean": "node tools/cleanup",
-    "package": "npm run build && npm pack",
-    "addscope": "node tools/packagejson name @tomchen/example-typescript-package"
+    "package": "npm run build && npm pack"
   },
   "publishConfig": {
     "access": "public"

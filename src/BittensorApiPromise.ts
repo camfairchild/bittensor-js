@@ -10,10 +10,10 @@ import { Option } from "@polkadot/types";
 export class BittensorApiPromise {
     api?: ApiPromise;
 
-    public async create(
+    public static async create(
       endpoints: string | string[],
       options?: ApiOptions
-    ) {
+    ): Promise<BittensorApiPromise> {
 
       const wsProvider = new WsProvider(endpoints);
       await wsProvider.connect();
@@ -195,7 +195,10 @@ export class BittensorApiPromise {
         provider: wsProvider,
       });
 
-      this.api = api;
+      const bapi = new this();
+      bapi.api = api;
+
+      return bapi;
     }
 
     public assertApiInitialized(): void {
