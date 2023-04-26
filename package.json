@@ -1,6 +1,6 @@
 {
   "name": "bittensor-js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "author": "Fairchild Software Inc <cameron@fairchild.software>",
   "main": "dist/cjs/index.js",
