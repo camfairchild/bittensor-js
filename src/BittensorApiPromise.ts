@@ -8,7 +8,7 @@ import { ApiOptions } from "@polkadot/api/types";
 import { Option } from "@polkadot/types";
 
 export class BittensorApiPromise {
-    api?: ApiPromise;
+    public api?: ApiPromise;
 
     public static async create(
       endpoints: string | string[],
