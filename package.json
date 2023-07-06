@@ -26,17 +26,10 @@
     "dist"
   ],
   "keywords": [
-    "example",
-    "typescript",
-    "npm",
-    "package",
-    "sample",
-    "boilerplate",
-    "starter",
-    "demo",
-    "cjs",
-    "esm",
-    "umd"
+    "bittensor",
+    "subtensor",
+    "TAO",
+    "typescript"
   ],
   "license": "MIT",
   "homepage": "https://github.com/camfairchild/bittensor-js",
