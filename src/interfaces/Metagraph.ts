@@ -120,7 +120,7 @@ export interface NeuronInfo {
   coldkey: AccountId
   uid: number
   netuid: number
-  active: Boolean
+  active: boolean
   axon_info: AxonInfo
   prometheus_info: PrometheusInfo
   stake: Array<[AccountId, number]> // map of coldkey to stake on this neuron/hotkey (includes delegations)
@@ -133,7 +133,7 @@ export interface NeuronInfo {
   validator_trust: number
   dividends: number
   last_update: number
-  validator_permit: Boolean
+  validator_permit: boolean
   weights: Array<[number, number]> // map of uid to weight
   bonds: Array<[number, number]> // map of uid to bond
   pruning_score: number
@@ -144,7 +144,7 @@ export interface NeuronInfoLite extends Codec {
   coldkey: AccountId
   uid: number
   netuid: number
-  active: Boolean
+  active: boolean
   axon_info: AxonInfo
   prometheus_info: PrometheusInfo
   stake: Array<[AccountId, number]> // map of coldkey to stake on this neuron/hotkey (includes delegations)
@@ -157,7 +157,7 @@ export interface NeuronInfoLite extends Codec {
   validator_trust: number
   dividends: number
   last_update: number
-  validator_permit: Boolean
+  validator_permit: boolean
   pruning_score: number
 }
 
