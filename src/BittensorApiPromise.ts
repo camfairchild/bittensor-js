@@ -218,13 +218,18 @@ export class BittensorApiPromise<ApiType extends ApiPromise> {
 
   public async getNeurons(netuids: Array<number>): Promise<RawMetagraph> {
     this.assertApiInitialized()
-    const api = this.api!
+    const api = this.api
+
+    if (api === undefined) {
+      throw new Error('API is not initialized. Please call create() first')
+    }
 
     return new Promise<RawMetagraph>(async (resolve, reject) => {
-      let results_map: RawMetagraph = {}
-      for (let netuid of netuids) {
+      const results_map: RawMetagraph = {}
+      let netuid
+      for (netuid of netuids) {
         try {
-          let result_bytes = await (api.rpc as any).neuronInfo.getNeuronsLite(
+          const result_bytes = await (api.rpc as any).neuronInfo.getNeuronsLite(
             netuid
           )
 
@@ -256,7 +261,7 @@ export class BittensorApiPromise<ApiType extends ApiPromise> {
       result.toJSON() as any[] as DelegateInfoRaw[]
 
     const delegate_info = delegate_info_raw.map((delegate: DelegateInfoRaw) => {
-      let nominators: [string, number][] = []
+      const nominators: [string, number][] = []
       let total_stake = 0
       for (let i = 0; i < delegate.nominators.length; i++) {
         const nominator = delegate.nominators[i]
@@ -294,13 +299,13 @@ export class BittensorApiPromise<ApiType extends ApiPromise> {
         return subnetInfo.netuid
       })
 
-    let _meta: Metagraph = {}
+    const _meta: Metagraph = {}
 
     const result: RawMetagraph = await this.getNeurons(netuids)
 
     Object.entries(result).forEach(
       ([netuid, neurons]: [string, NeuronInfoLite[]]) => {
-        let neurons_ = neurons.map((neuron: NeuronInfoLite) => {
+        const neurons_ = neurons.map((neuron: NeuronInfoLite) => {
           return {
             hotkey: neuron.hotkey.toString(),
             coldkey: neuron.coldkey.toString(),
