@@ -13,7 +13,7 @@ import {
 } from './interfaces'
 import { AccountId } from '@polkadot/types/interfaces'
 import { ApiOptions } from '@polkadot/api/types'
-import { Option } from '@polkadot/types'
+import { Option, bool } from '@polkadot/types'
 
 export class BittensorApiPromise<ApiType extends ApiPromise> {
   public api?: ApiType
@@ -210,17 +210,13 @@ export class BittensorApiPromise<ApiType extends ApiPromise> {
     return bapi
   }
 
-  public assertApiInitialized(): void {
-    if (this.api === undefined) {
-      throw new Error('API is not initialized. Please call create() first')
-    }
+  public assertApiInitialized(api: ApiType | undefined): boolean {
+    return !(api === undefined)
   }
 
   public async getNeurons(netuids: Array<number>): Promise<RawMetagraph> {
-    this.assertApiInitialized()
     const api = this.api
-
-    if (api === undefined) {
+    if (!this.assertApiInitialized(api) || api === undefined) {
       throw new Error('API is not initialized. Please call create() first')
     }
 
@@ -249,8 +245,10 @@ export class BittensorApiPromise<ApiType extends ApiPromise> {
   }
 
   public async getDelegateInfo(): Promise<DelegateInfo[]> {
-    this.assertApiInitialized()
-    const api = this.api!
+    const api = this.api
+    if (!this.assertApiInitialized(api) || api === undefined) {
+      throw new Error('API is not initialized. Please call create() first')
+    }
 
     const result_bytes = await (api.rpc as any).delegateInfo.getDelegates()
     const result = api.createType<DelegateInfoRaw>(
@@ -282,8 +280,10 @@ export class BittensorApiPromise<ApiType extends ApiPromise> {
   }
 
   public async getMetagraph(): Promise<Metagraph> {
-    this.assertApiInitialized()
-    const api = this.api!
+    const api = this.api
+    if (!this.assertApiInitialized(api) || api === undefined) {
+      throw new Error('API is not initialized. Please call create() first')
+    }
 
     const subnets_info_bytes = await (
       api.rpc as any
